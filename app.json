@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "banksystem",
+    "slug": "banksystem",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

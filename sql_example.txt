@@ -1,0 +1,31 @@
+ 
+drop table transfer_table;
+drop table user_table;
+
+CREATE TABLE user_table (first_name varchar(255), last_name varchar(255), email varchar(255), current_balance int(255));
+
+INSERT INTO user_table (first_name, last_name, email, current_balance) values 
+("Aditya", "Patil", "adityapatil@gmail.com", 10000),
+("Sam", "Danial", "samdanial@gmail.com", 15000),
+("Gaurav", "Deshpande", "gauravdeshpande@gmail.com", 20000),   
+("Shreyas", "Kulkarni", "shreyaskulkarni@gmail.com", 25000),    
+("Altaf", "Tadvi", "altaftadvi@gmail.com", 30000),    
+("Yashashri", "Deokate", "yashashrideokate@gmail.com", 35000),    
+("Shruti", "Jedhe", "shrutijedhe@gmail.com", 40000),    
+("Teena", "Datta", "teenadatta@gmail.com", 17000),    
+("Pradeep", "Kukreja", "pradeepkukreja@gmail.com", 23000),    
+("Anna", "Naik", "annanaik@gmail.com", 12000);
+
+CREATE TABLE transfer_table (transferred_amount int(255), to_first_name varchar(255), to_last_name varchar(255), to_email varchar(255), from_first_name varchar (255), from_last_name varchar(255));
+
+
+INSERT INTO transfer_table (transferred_amount, to_first_name, to_last_name, to_email, from_first_name, from_last_name) values 
+(10000, "Yashashri", "Deokate", "yashashrideokate@gmail.com", "Aditya","Patil");
+
+-- subtract sender current balance
+UPDATE user_table SET current_balance = current_balance - (select (transferred_amount) from transfer_table where from_first_name = "Aditya" and from_last_name = "Patil" and to_first_name = "Yashashri" and to_last_name = "Deokate") WHERE first_name = "Aditya" and last_name = "Patil";
+
+-- add receiver current balance
+UPDATE user_table SET current_balance = current_balance + (select (transferred_amount) from transfer_table where from_first_name = "Aditya" and from_last_name = "Patil" and to_first_name = "Yashashri" and to_last_name = "Deokate") WHERE first_name = "Yashashri" and last_name = "Deokate";
+
+
